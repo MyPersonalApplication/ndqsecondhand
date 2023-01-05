@@ -30,10 +30,10 @@ include_once("connectdatabase.php");
         </form>
       </div>
       <ul class="nav col-xl-auto col-lg-auto col-md-auto col-12 d-flex justify-content-center align-items-center mt-2 mt-lg-0 mt-md-0">
-        <li><a href="index.php" class="nav-link px-2 link-dark text-uppercase">Home</a></li>
-        <li><a href="?page=shop" class="nav-link px-2 link-dark text-uppercase">Shop</a></li>
+        <li><a href="index.php" class="nav-link px-2 link-dark text-uppercase fw-bold">Home</a></li>
+        <li><a href="?page=shop" class="nav-link px-lg-4 px-sm-3 link-dark text-uppercase fw-bold">Shop</a></li>
         <!-- <li><a href="?page=contact" class="nav-link px-2 link-dark text-uppercase">Contact</a></li> -->
-        <li><a href="?page=about" class="nav-link px-2 link-dark text-uppercase">About Us</a></li>
+        <li><a href="?page=about" class="nav-link px-2 link-dark text-uppercase fw-bold">About</a></li>
       </ul>
       <div class="col-xl-3 col-lg-3 col-md-3 col-12">
         <?php
