@@ -4,7 +4,7 @@
       <div class="card card-registration m-md-5 m-2">
         <div class="row">
           <div class="col-xl-6">
-            <div class="m-2 m-md-5" align="center">
+            <div class="m-2 m-md-5 text-center">
               <div class="m-md-5 m-5">
                 <h3>
                   ABOUT NDQ STORE

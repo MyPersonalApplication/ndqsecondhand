@@ -1,3 +1,8 @@
+<?php
+session_start();
+include_once("connectdatabase.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,36 +11,41 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- CSS only -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand" rel="stylesheet">
+
   <link rel="stylesheet" href="css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/style.css" />
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
   <title>NDQ - SecondHand</title>
   <link rel="icon" href="Image/NDQlogo.png" />
 </head>
-<?php
-session_start();
-include_once("connectdatabase.php");
-?>
 
 <body>
-  <div class="container">
-    <header class="d-flex flex-wrap text-center justify-content-md-between py-4" style="background-color: #E0E0E0;">
-      <div class="col-xl-3 col-lg-3 col-md-3 col-12 ms-lg-2 ms-md-2 d-flex justify-content-center text-dark align-items-center">
-        <img title="NDQStore" onclick="location.href='index.php'" src="Image/NDQlogo.png" height="40" width="40" class="me-2" style="border-radius: 5px" role="button" />
-        <form class="d-flex input-group w-auto" method="POST" action="?page=shop">
-          <input name="txtSearch" type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-          <button class="btn btn-primary searching" type="submit" name="btnSearch">
-            <i class="bi bi-search"></i>
-          </button>
-        </form>
+  <div class="container-fluid">
+    <header class="d-flex flex-wrap justify-content-between py-4" style="background-color: #E0E0E0;">
+      <div class="col-12 col-md-3">
+        <div class="d-flex justify-content-center">
+          <img title="NDQStore" onclick="location.href='index.php'" src="Image/NDQlogo.png" height="40" width="40" class="me-2" style="border-radius: 5px" role="button" />
+          <form class="d-flex input-group w-auto" method="POST" action="?page=shop">
+            <input name="txtSearch" type="search" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <button class="btn btn-primary searching" type="submit" name="btnSearch">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+        </div>
       </div>
-      <ul class="nav col-xl-auto col-lg-auto col-md-auto col-12 d-flex justify-content-center align-items-center mt-2 mt-lg-0 mt-md-0">
-        <li><a href="index.php" class="nav-link px-2 link-dark text-uppercase fw-bold">Home</a></li>
-        <li><a href="?page=shop" class="nav-link px-lg-4 px-sm-3 link-dark text-uppercase fw-bold">Shop</a></li>
-        <!-- <li><a href="?page=contact" class="nav-link px-2 link-dark text-uppercase">Contact</a></li> -->
-        <li><a href="?page=about" class="nav-link px-2 link-dark text-uppercase fw-bold">About</a></li>
-      </ul>
-      <div class="col-xl-3 col-lg-3 col-md-3 col-12">
+      <div class="col-12 col-md-auto">
+        <ul class="nav justify-content-center align-items-center mt-2 mt-lg-0 mt-md-0">
+          <li><a href="index.php" class="nav-link px-2 link-dark text-uppercase fw-bold">Home</a></li>
+          <li><a href="?page=shop" class="nav-link px-lg-4 px-sm-3 link-dark text-uppercase fw-bold">Shop</a></li>
+          <!-- <li><a href="?page=contact" class="nav-link px-2 link-dark text-uppercase">Contact</a></li> -->
+          <li><a href="?page=about" class="nav-link px-2 link-dark text-uppercase fw-bold">About</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-3">
         <?php
         if (isset($_SESSION['us']) && $_SESSION['us'] != "") {
         ?>
@@ -44,11 +54,6 @@ include_once("connectdatabase.php");
             <a class="text-reset me-4 ms-xl-5" href="?page=cart">
               <i class="bi bi-cart-fill"></i>
             </a>
-
-            <!-- Notifications
-            <a class="text-reset mx-4" href="?page=notification">
-              <i class="bi bi-bell-fill"></i>
-            </a> -->
 
             <!-- Avatar -->
             <div class="dropdown">
@@ -97,13 +102,15 @@ include_once("connectdatabase.php");
         <?php
         } else {
         ?>
-          <div class="mt-2 mt-lg-0 mt-md-0 d-flex justify-content-center justify-content-md-end me-md-3">
-            <a href="?page=login" class="btn btn-outline-primary me-2" class="btn btn-outline-primary" role="button">
-              Login
-            </a>
-            <a href="?page=register" class="btn btn-primary" class="btn btn-outline-primary" role="button">
-              Sign-up
-            </a>
+          <div class="mt-2 mt-lg-0 mt-md-0">
+            <div class="d-flex justify-content-center">
+              <a href="?page=login" class="btn btn-outline-primary me-2" class="btn btn-outline-primary" role="button">
+                Login
+              </a>
+              <a href="?page=register" class="btn btn-primary" class="btn btn-outline-primary" role="button">
+                Sign-up
+              </a>
+            </div>
           </div>
         <?php
         }
@@ -150,6 +157,8 @@ include_once("connectdatabase.php");
         include_once("Feedback.php");
       } elseif ($page == "order_management") {
         include_once("Order_Management.php");
+      } elseif ($page == "order_detail_management") {
+        include_once("Order_Detail_Management.php");
       } elseif ($page == "feedback_management") {
         include_once("Feed_Management.php");
       } elseif ($page == "update_cbshow") {

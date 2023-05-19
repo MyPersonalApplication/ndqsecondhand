@@ -21,9 +21,9 @@ if (isset($_SESSION['us']) == false) {
 
         <?php
         if (isset($_GET["function"]) == "del") {
-            $ido = $_GET["ido"];
-            $idp = $_GET["idp"];
-            mysqli_query($conn, "DELETE FROM orderdetail WHERE OrderID = '$ido' AND ProID = '$idp'");
+            $id = $_GET["id"];
+            mysqli_query($conn, "DELETE FROM orderdetail WHERE OrderID = '$id'");
+            mysqli_query($conn, "DELETE FROM orders WHERE OrderID = '$id'");
         }
         ?>
 
@@ -38,8 +38,6 @@ if (isset($_SESSION['us']) == false) {
                             <!-- <th><strong>Delivery date</strong></th> -->
                             <th><strong>Delivery local</strong></th>
                             <th><strong>Customer Name</strong></th>
-                            <th><strong>Product</strong></th>
-                            <th><strong>Quantity</strong></th>
                             <th><strong>Delete</strong></th>
                         </tr>
                     </thead>
@@ -47,9 +45,9 @@ if (isset($_SESSION['us']) == false) {
                     <tbody>
                         <?php
                         $No = 1;
-                        $sq = "SELECT Orderdate, Deliverydate, Deliverylocal, c.CustName, Pro_image, Qty
-                                FROM orders o, orderdetail od, product p, customer c
-                                WHERE o.OrderID = od.OrderID AND od.ProID = p.ProID AND o.Username = c.Username ORDER BY Orderdate DESC";
+                        $sq = "SELECT o.OrderID, Orderdate, Deliverydate, Deliverylocal, c.CustName
+                                FROM orders o, customer c
+                                WHERE o.Username = c.Username ORDER BY Orderdate DESC";
                         $res = mysqli_query($conn, $sq);
                         if (!$res) {
                             die('Invalid query: ' . mysqli_error($conn));
@@ -57,17 +55,15 @@ if (isset($_SESSION['us']) == false) {
                         while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
                         ?>
                             <tr>
-                                <td class="text-center"><?php echo $No ?></td>
-                                <td align='center'><?php echo $row["Orderdate"]; ?></td>
-                                <!-- <td align='center'><?php echo $row["Deliverydate"]; ?></td> -->
+                                <td class="text-center">
+                                    <a href="?page=order_detail_management&id=<?php echo $row["OrderID"] ?>" class="text-decoration-none"><?php echo $No ?></a>
+                                </td>
+                                <td class="text-center"><?php echo $row["Orderdate"]; ?></td>
+                                <!-- <td class="text-center"><?php echo $row["Deliverydate"]; ?></td> -->
                                 <td><?php echo $row["Deliverylocal"]; ?></td>
                                 <td><?php echo $row["CustName"]; ?></td>
-                                <td align='center'>
-                                    <img src='Product/<?php echo $row["Pro_image"] ?>' border='0' width="50" height="50" />
-                                </td>
-                                <td align='center'><?php echo $row["Qty"]; ?></td>
                                 <td style='text-align:center'>
-                                    <a href="?page=order_management&&function=del&&ido=<?php echo $row["OrderID"] ?>&&idp=<?php echo $row["ProID"] ?>" onclick="return deleteConfirm()">
+                                    <a href="?page=order_management&&function=del&&id=<?php echo $row["OrderID"] ?>" onclick="return deleteConfirm()">
                                         <i class="bi bi-trash-fill" style="color: red;"></i>
                                     </a>
                                 </td>
